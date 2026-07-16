@@ -1,22 +1,70 @@
 import { getAllBooks } from '@/lib/wordpress';
 import Link from 'next/link';
-import Image from 'next/image'; // Tải cấu phần Image của Next.js
+import Image from 'next/image';
 import FadeIn from '@/components/FadeIn';
 import HoverCard from '@/components/HoverCard';
 
-// Cấu hình SEO Metadata tĩnh cho trang danh mục sách
+// 1. ĐỊNH NGHĨA METADATA & OPEN GRAPH CHO TRANG LƯU TRỮ SÁCH
 export const metadata = {
-  title: 'Thư Viện Sách Đầu Tư | Blog Long Web Studio',
-  description: 'Tổng hợp và review chi tiết tủ sách đầu tư tài chính chọn lọc, cập nhật ưu đãi và liên kết mua hàng tốt nhất.',
+  title: 'Thư Viện Sách Đầu Tư Chọn Lọc | Blog Long Web Studio',
+  description: 'Tổng hợp và đánh giá chi tiết các đầu sách đầu tư tài chính, chứng khoán kinh điển. Cập nhật liên kết mua hàng ưu đãi nhất.',
+  alternates: {
+    canonical: 'https://blog.longwebstudio.io/sach-dau-tu', // Thẻ chuẩn hóa cho trang lưu trữ sách
+  },
+  openGraph: {
+    title: 'Thư Viện Sách Đầu Tư Chọn Lọc | Blog Long Web Studio',
+    description: 'Tổng hợp và đánh giá chi tiết các đầu sách đầu tư tài chính, chứng khoán kinh điển. Cập nhật liên kết mua hàng ưu đãi nhất.',
+    url: 'https://blog.longwebstudio.io/sach-dau-tu',
+    siteName: 'Long Web Studio Blog',
+    images: [
+      {
+        url: 'https://blog.longwebstudio.io/logo-og.jpg',
+        width: 1200,
+        height: 630,
+      }
+    ],
+    locale: 'vi_VN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Thư Viện Sách Đầu Tư Chọn Lọc | Blog Long Web Studio',
+    description: 'Tổng hợp và đánh giá chi tiết các đầu sách đầu tư tài chính, chứng khoán kinh điển. Cập nhật liên kết mua hàng ưu đãi nhất.',
+    images: ['https://blog.longwebstudio.io/logo-og.jpg'],
+  }
 };
 
 export default async function BooksArchivePage() {
   const books = await getAllBooks();
 
+  // 2. KHAI BÁO CẤU TRÚC DỮ LIỆU JSON-LD (COLLECTIONPAGE & ITEMLIST)
+  // Biến đổi mảng sách nhận về từ WPGraphQL thành danh sách phần tử chuẩn schema của Google
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    'name': 'Thư Viện Sách Đầu Tư Chọn Lọc | Blog Long Web Studio',
+    'description': 'Tổng hợp và đánh giá chi tiết các đầu sách đầu tư tài chính, chứng khoán kinh điển.',
+    'url': 'https://blog.longwebstudio.io/sach-dau-tu',
+    'mainEntity': {
+      '@type': 'ItemList',
+      'itemListElement': books.map((book, index) => ({
+        '@type': 'ListItem',
+        'position': index + 1,
+        'url': `https://blog.longwebstudio.io/sach-dau-tu/${book.slug}`,
+        'name': book.title
+      }))
+    }
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-16 flex-grow">
+      {/* Nhúng dữ liệu cấu trúc danh sách vào đầu trang */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       
-      {/* Tiêu đề trang - Xuất hiện mượt mà bằng FadeIn */}
+      {/* Tiêu đề trang */}
       <FadeIn delay={0.1}>
         <header className="mb-12 text-center">
           <span className="text-xs font-bold text-red-600 uppercase tracking-widest block mb-2">
@@ -31,7 +79,7 @@ export default async function BooksArchivePage() {
         </header>
       </FadeIn>
 
-      {/* Kiểm tra và hiển thị danh sách sách */}
+      {/* Danh sách sách */}
       {books.length === 0 ? (
         <FadeIn delay={0.2}>
           <div className="text-center py-20 bg-white rounded-2xl border border-slate-100 shadow-sm max-w-md mx-auto">
@@ -47,19 +95,16 @@ export default async function BooksArchivePage() {
                 ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(book.giaBan)
                 : 'Liên hệ';
               return (
-                // Bọc từng thẻ sách bằng hiệu ứng tương tác HoverCard
                 <HoverCard key={book.slug}>
                   <article className="bg-white p-4 rounded-2xl border border-slate-100 flex flex-col justify-between hover:shadow-md transition-shadow h-full">
                     <div>
-                      
-                      {/* Ảnh bìa sách sử dụng Next.js Image tối ưu qua Jetpack Photon CDN */}
                       <div className="aspect-[3/4] bg-slate-50 rounded-xl overflow-hidden mb-3 flex items-center justify-center relative border border-slate-50">
                         {book.featuredImage?.node?.sourceUrl ? (
                           <Image 
                             src={book.featuredImage.node.sourceUrl} 
                             alt={book.title} 
-                            width={300} // Next.js truyền tham số này vào custom loader để tự căn tỷ lệ qua Photon CDN
-                            height={400} // Đảm bảo tỷ lệ khung hình 3:4 tránh hiện tượng xê dịch bố cục (CLS)
+                            width={300} 
+                            height={400} 
                             className="w-full h-full object-cover" 
                           />
                         ) : (
@@ -69,7 +114,6 @@ export default async function BooksArchivePage() {
                         )}
                       </div>
                       
-                      {/* Danh mục thẻ tag của sách */}
                       {book.sachTags?.nodes?.length > 0 && (
                         <div className="flex flex-wrap gap-1 mb-2">
                           {book.sachTags.nodes.map((tag) => (
@@ -80,21 +124,18 @@ export default async function BooksArchivePage() {
                         </div>
                       )}
 
-                      {/* Tiêu đề cuốn sách */}
                       <h2 className="text-sm font-bold text-slate-900 line-clamp-2 leading-snug hover:text-red-600 transition-colors">
                         <Link href={`/sach-dau-tu/${book.slug}`}>
                           {book.title}
                         </Link>
                       </h2>
                       
-                      {/* Trích dẫn tóm tắt ngắn từ WordPress */}
                       <div 
                         className="text-xs text-slate-400 line-clamp-2 mt-2 leading-relaxed"
                         dangerouslySetInnerHTML={{ __html: book.excerpt }}
                       />
                     </div>
 
-                    {/* Phần chân của thẻ sách */}
                     <div className="mt-4 pt-3 border-t border-slate-50 flex items-center justify-between">
                       <span className="text-xs font-black text-red-600">{priceFormatted}</span>
                       <Link href={`/sach-dau-tu/${book.slug}`} className="text-[10px] bg-slate-900 text-white font-bold px-2.5 py-1.5 rounded-lg hover:bg-slate-800 transition-colors">
