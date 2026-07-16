@@ -48,12 +48,12 @@ export default async function BlogPostPage({ params }) {
         </div>
       )}
 
-      <!-- Bài viết chi tiết -->
+      {/* <!-- Bài viết chi tiết --> */}
       <article class="prose prose-slate max-w-none text-sm text-slate-600 leading-relaxed space-y-6">
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </article>
 
-      <!-- Khung thông tin tác giả -->
+      {/* <!-- Khung thông tin tác giả --> */}
       <section class="mt-16 p-6 sm:p-8 bg-slate-950 text-white rounded-2xl flex flex-col sm:flex-row items-center gap-6">
         <div class="w-16 h-16 rounded-full overflow-hidden bg-slate-800 flex items-center justify-center border border-red-500 text-3xl">
           👨‍💻

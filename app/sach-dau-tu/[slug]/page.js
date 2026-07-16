@@ -35,7 +35,7 @@ export default async function BookDetailPage({ params }) {
 
   return (
     <div class="max-w-4xl mx-auto px-4 py-12 flex-grow">
-      <!-- Breadcrumbs -->
+      {/* <!-- Breadcrumbs --> */}
       <nav class="mb-8 text-xs text-slate-400">
         <Link href="/" class="hover:text-red-600">Trang chủ</Link> &rsaquo;{' '}
         <span class="text-slate-900 font-medium">{book.title}</span>
@@ -43,7 +43,7 @@ export default async function BookDetailPage({ params }) {
 
       <div class="grid grid-cols-1 md:grid-cols-12 gap-10 bg-white p-6 sm:p-10 rounded-2xl border border-slate-100 shadow-sm">
         
-        <!-- Cột trái: Ảnh bìa sách -->
+        {/* <!-- Cột trái: Ảnh bìa sách --> */}
         <div class="md:col-span-5 flex justify-center">
           <div class="w-full max-w-xs bg-slate-50 p-2 rounded-xl border border-slate-100 overflow-hidden shadow-sm h-fit">
             {book.featuredImage?.node?.sourceUrl ? (
@@ -60,10 +60,10 @@ export default async function BookDetailPage({ params }) {
           </div>
         </div>
 
-        <!-- Cột phải: Thông tin, Thẻ tags & Nội dung review -->
+        {/* <!-- Cột phải: Thông tin, Thẻ tags & Nội dung review --> */}
         <div class="md:col-span-7 flex flex-col justify-between">
           <div>
-            <!-- Thẻ tags nếu có -->
+            {/* <!-- Thẻ tags nếu có --> */}
             {book.sachTags?.nodes?.length > 0 && (
               <div class="flex flex-wrap gap-1.5 mb-4">
                 {book.sachTags.nodes.map((tag) => (
@@ -78,7 +78,7 @@ export default async function BookDetailPage({ params }) {
               {book.title}
             </h1>
 
-            <!-- Hộp hành động: Hiển thị giá & Nút mua affiliate Shopee -->
+            {/* <!-- Hộp hành động: Hiển thị giá & Nút mua affiliate Shopee --> */}
             <div class="mt-6 bg-red-50/70 border border-red-100 p-5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
                 <span class="text-[9px] text-red-600 font-bold uppercase tracking-wider block mb-0.5">Giá bán ưu đãi</span>
@@ -97,7 +97,7 @@ export default async function BookDetailPage({ params }) {
             </div>
           </div>
 
-          <!-- Nội dung Review chi tiết -->
+          {/* <!-- Nội dung Review chi tiết --> */}
           <div class="mt-8 pt-8 border-t border-slate-100">
             <h3 class="text-sm font-black text-slate-900 mb-4 flex items-center gap-2">
               <span>📝</span> Review & Nhận Xét Chi Tiết
