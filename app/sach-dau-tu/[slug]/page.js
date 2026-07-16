@@ -1,5 +1,6 @@
 import { getBookBySlug, getAllBooks } from '@/lib/wordpress';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 
 // 1. Khởi tạo Dynamic SEO Metadata sử dụng trực tiếp trường lwsSeo từ GraphQL
 export async function generateMetadata({ params }) {

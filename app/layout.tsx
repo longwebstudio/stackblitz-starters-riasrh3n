@@ -7,7 +7,11 @@ export const metadata = {
     'Trang chia sẻ kiến thức thiết kế website WordPress chuẩn SEO và giới thiệu tủ sách đầu tư tài chính.',
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="vi">
       <body className="bg-slate-50 text-slate-900 min-h-screen flex flex-col justify-between">
