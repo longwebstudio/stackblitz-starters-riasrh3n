@@ -2,26 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Loại bỏ vùng xám nhấp nháy khi bấm trên điện thoại */
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    @apply antialiased text-slate-900 bg-slate-50 selection:bg-red-500 selection:text-white;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* ==========================================================================
+   HỖ TRỢ ĐỊNH DẠNG MÃ HTML TỰ ĐỘNG TỪ WORDPRESS (GUTENBERG & CLASSIC EDITOR)
+   Giúp kết xuất dangerouslySetInnerHTML tương thích hoàn hảo với Next.js
+   ========================================================================== */
+
+/* Điều chỉnh lại chiều rộng tối đa cho vùng đọc nội dung */
+.prose {
+  max-width: 100% !important;
+}
+
+/* Làm đẹp cho các hình ảnh được chèn bên trong bài viết */
+.prose img {
+  @apply rounded-xl shadow-sm border border-slate-100 my-6 max-w-full h-auto;
+}
+
+/* Định dạng các liên kết (Thẻ a) trong nội dung bài viết theo thương hiệu của bạn */
+.prose a {
+  @apply text-red-600 no-underline font-semibold hover:text-red-700 transition-colors border-b border-dashed border-red-200 hover:border-red-600;
+}
+
+/* Căn giữa hình ảnh (aligncenter) từ WordPress block */
+.aligncenter,
+.wp-block-image.aligncenter {
+  display: block;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center;
+}
+
+/* Căn trái hình ảnh và cho chữ bao quanh (alignleft) */
+.alignleft,
+.wp-block-image.alignleft {
+  float: left;
+  margin-right: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Căn phải hình ảnh và cho chữ bao quanh (alignright) */
+.alignright,
+.wp-block-image.alignright {
+  float: right;
+  margin-left: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Clear float để tránh hiện tượng vỡ khung nội dung (bố cục) phía dưới ảnh float */
+.prose::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Định dạng nhanh cho các thẻ trích dẫn blockquote từ WordPress */
+.prose blockquote {
+  @apply border-l-4 border-slate-300 pl-4 py-1 my-6 italic text-slate-500 font-medium;
 }
