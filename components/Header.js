@@ -10,7 +10,7 @@ export default function Header() {
   const menuItems = [
     { label: 'Trang chủ', href: '/' },
     { label: 'Tủ Sách', href: '/sach-dau-tu' },
-    { label: 'Dịch Vụ', href: 'https://longwebstudio.io.vn', external: true },
+    // { label: 'Dịch Vụ', href: 'https://longwebstudio.io.vn', external: true },
   ];
 
   return (
@@ -37,7 +37,7 @@ export default function Header() {
               </Link>
             )
           ))}
-          <a href="https://longwebstudio.io.vn" target="_blank" rel="noopener noreferrer" className="bg-slate-900 text-white text-xs px-3.5 py-1.5 rounded-lg hover:bg-slate-800 transition-colors">
+          <a href="https://www.longwebstudio.io.vn" target="_blank" rel="noopener noreferrer" className="bg-slate-900 text-white text-xs px-3.5 py-1.5 rounded-lg hover:bg-slate-800 transition-colors">
             Dịch Vụ
           </a>
         </nav>

@@ -1,7 +1,7 @@
 import { getAllPosts, getAllBooks } from '@/lib/wordpress';
 
 export default async function sitemap() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.longwebstudio.io';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://blog.longwebstudio.io.vn';
 
   // Khởi tạo mảng trống đề phòng trường hợp kết nối API gặp lỗi
   let posts = [];
