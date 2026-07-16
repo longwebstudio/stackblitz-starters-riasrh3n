@@ -129,7 +129,7 @@ export default async function BlogPostPage({ params }) {
           <div className="w-16 h-16 rounded-full overflow-hidden bg-slate-800 flex items-center justify-center border border-red-500 text-3xl">
             👨‍💻
           </div>
-          <div class="text-center sm:text-left">
+          <div className="text-center sm:text-left">
             <span className="text-[10px] text-red-500 font-bold uppercase tracking-wider block">Tác giả</span>
             <h4 className="text-base font-bold text-white mt-0.5">Long Web Studio</h4>
             <p className="text-xs text-slate-400 mt-2 leading-relaxed">

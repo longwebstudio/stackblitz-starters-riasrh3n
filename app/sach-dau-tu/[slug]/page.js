@@ -34,7 +34,7 @@ export async function generateMetadata({ params }) {
         },
       ],
       locale: 'vi_VN',
-      type: 'books.book',
+      type: 'books',
     },
     twitter: {
       card: 'summary_large_image',
