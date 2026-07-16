@@ -2,6 +2,16 @@ import './globals.css';
 import Link from 'next/link';
 import Script from 'next/script'; // Import cấu phần Script mặc định
 
+// app/layout.js
+
+export const metadata = {
+  // Bổ sung dòng cấu hình này để phân giải tất cả đường dẫn tương đối trong SEO
+  metadataBase: new URL('https://blog.longwebstudio.io'), 
+  
+  title: 'Blog Long Web Studio | Kiến Thức Lập Trình & Sách Đầu Tư',
+  description: 'Trang chia sẻ kiến thức thiết kế website WordPress chuẩn SEO và giới thiệu tủ sách đầu tư tài chính.',
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="vi">
